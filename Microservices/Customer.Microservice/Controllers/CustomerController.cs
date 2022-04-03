@@ -1,4 +1,4 @@
-﻿using Customer.Microservice.DataOperations;
+﻿using Customer.Microservice.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Customer.Microservice.Controllers
@@ -7,30 +7,46 @@ namespace Customer.Microservice.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerService _customerService;
 
-        public CustomerController(ICustomerRepository customerRepository)
+        public CustomerController(ICustomerService customerService)
         {
-            _customerRepository = customerRepository;
+            _customerService = customerService;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_customerRepository.GetAll());
+            return Ok(_customerService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
-            return Ok(_customerRepository.GetById(id));
+            return Ok(_customerService.GetById(id));
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] DataOperations.Customer customer)
+        public IActionResult Create([FromBody] Entities.Customer customer)
         {
-            _customerRepository.Add(customer);
+            _customerService.Create(customer);
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] Entities.Customer customer)
+        {
+            _customerService.Update(customer);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete([FromBody] Entities.Customer customer)
+        {
+            _customerService.Delete(customer);
             return Ok();
         }
     }
 }
+
+

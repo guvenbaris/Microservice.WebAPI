@@ -1,10 +1,13 @@
-﻿
-namespace Customer.Microservice.DataOperations
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace Customer.Microservice.Entities
 {
     public class Customer
     {
-
-        public string CustomerID { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
         public string Address { get; set; }
@@ -13,3 +16,4 @@ namespace Customer.Microservice.DataOperations
         public string Country { get; set; }
     }
 }
+

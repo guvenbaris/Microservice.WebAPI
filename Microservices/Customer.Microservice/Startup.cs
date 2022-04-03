@@ -1,12 +1,12 @@
+using Customer.Microservice.DataAccess.Concrete;
+using Customer.Microservice.Services.Abstract;
+using Customer.Microservice.Services.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Customer.Microservice.DataOperations;
-using Microsoft.EntityFrameworkCore;
-
 namespace Customer.Microservice
 {
     public class Startup
@@ -22,11 +22,9 @@ namespace Customer.Microservice
         {
 
             services.AddControllers();
+            services.AddScoped<MongoCustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
-            services.AddDbContext<CustomerContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("mssql")));
-
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Customer.Microservice", Version = "v1" });
