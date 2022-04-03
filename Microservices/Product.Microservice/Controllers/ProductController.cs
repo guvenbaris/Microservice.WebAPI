@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Product.Microservice.DataOperation;
+using Product.Microservice.Services.Abstract;
 
 namespace Product.Microservice.Controllers
 {
@@ -7,29 +7,43 @@ namespace Product.Microservice.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IProductService _productService;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductService productService)
         {
-            _productRepository = productRepository;
+            _productService = productService;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_productRepository.GetAll());
+            return Ok(_productService.GetAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_productRepository.GetById(id));
+            return Ok(_productService.GetById(id));
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] DataOperation.Product product)
+        public IActionResult Create([FromBody] Entities.Product product)
         {
-            _productRepository.Add(product);
+            _productService.Create(product);
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] Entities.Product product)
+        {
+            _productService.Update(product);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _productService.Delete(id);
             return Ok();
         }
     }

@@ -9,6 +9,6 @@ namespace Customer.Microservice.Services.Abstract
         Task<Entities.Customer> GetById(string id);
         Task Create(Entities.Customer entity);
         Task Update(Entities.Customer entity);
-        Task Delete(Entities.Customer entity);
+        Task Delete(string id);
     }
 }

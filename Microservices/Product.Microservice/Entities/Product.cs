@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Product.Microservice.DataOperation
+namespace Product.Microservice.Entities
 {
     public class Product
     {
@@ -13,3 +13,4 @@ namespace Product.Microservice.DataOperation
         public bool IsDeleted { get; set; }
     }
 }
+

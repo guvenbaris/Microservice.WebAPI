@@ -1,4 +1,5 @@
-﻿using Customer.Microservice.Services.Abstract;
+﻿using System.Threading.Tasks;
+using Customer.Microservice.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Customer.Microservice.Controllers
@@ -15,35 +16,35 @@ namespace Customer.Microservice.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_customerService.GetAll());
+            return Ok(await _customerService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(string id)
+        public async Task<IActionResult> GetById(string id)
         {
-            return Ok(_customerService.GetById(id));
+            return Ok(await _customerService.GetById(id));
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Entities.Customer customer)
+        public async Task<IActionResult> Create([FromBody] Entities.Customer customer)
         {
-            _customerService.Create(customer);
+            await _customerService.Create(customer);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] Entities.Customer customer)
+        public async Task<IActionResult> Update([FromBody] Entities.Customer customer)
         {
-            _customerService.Update(customer);
+            await _customerService.Update(customer);
             return Ok();
         }
 
-        [HttpDelete]
-        public IActionResult Delete([FromBody] Entities.Customer customer)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
-            _customerService.Delete(customer);
+            await _customerService.Delete(id);
             return Ok();
         }
     }

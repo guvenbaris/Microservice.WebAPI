@@ -5,7 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Product.Microservice.DataOperation;
+using Product.Microservice.DataAccess.Abstract;
+using Product.Microservice.DataAccess.Concrete;
+using Product.Microservice.Services.Abstract;
+using Product.Microservice.Services.Concrete;
 
 
 namespace Product.Microservice
@@ -27,6 +30,7 @@ namespace Product.Microservice
                 options.UseSqlServer(Configuration.GetConnectionString("mssql")));
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddSwaggerGen(c =>
             {

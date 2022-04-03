@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Product.Microservice.DataOperation
+namespace Product.Microservice.DataAccess.Concrete
 {
     public class ProductContext :DbContext
     {
@@ -8,6 +8,6 @@ namespace Product.Microservice.DataOperation
         {
             
         }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Entities.Product> Products { get; set; }
     }
 }

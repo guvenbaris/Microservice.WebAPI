@@ -33,7 +33,6 @@ namespace Gateway.WebAPI
 
             app.UseRouting();
 
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

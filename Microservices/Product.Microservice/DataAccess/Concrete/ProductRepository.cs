@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Product.Microservice.DataAccess.Abstract;
 
-namespace Product.Microservice.DataOperation
+namespace Product.Microservice.DataAccess.Concrete
 {
     public class ProductRepository :IProductRepository
     {
@@ -10,24 +11,30 @@ namespace Product.Microservice.DataOperation
         {
             _context = context;
         }
-        public void Add(Product entity)
+        public void Create(Entities.Product entity)
         {
             _context.Products.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Update(Product entity)
+        public void Update(Entities.Product entity)
         {
             _context.Products.Update(entity);
             _context.SaveChanges();
         }
 
-        public List<Product> GetAll()
+        public void Delete(Entities.Product entity)
+        {
+            _context.Products.Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public List<Entities.Product> GetAll()
         {
             return _context.Products.ToList();
         }
 
-        public Product GetById(int id)
+        public Entities.Product GetById(int id)
         {
             return _context.Products.SingleOrDefault(p => p.Id == id);
         }

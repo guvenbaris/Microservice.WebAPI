@@ -34,9 +34,10 @@ namespace Customer.Microservice.Services.Concrete
             await _customerRepository.Update(entity);
         }
 
-        public async Task Delete(Entities.Customer entity)
+        public async Task Delete(string id)
         {
-            await _customerRepository.Delete(entity);
+            var customer = await _customerRepository.GetById(id);
+            await _customerRepository.Delete(customer);
         }
     }
 }
